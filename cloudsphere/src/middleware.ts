@@ -6,7 +6,7 @@ export async function middleware(request: NextRequest) {
   const token = await getToken({ req: request })
 
   if (!token) {
-    if (request.nextUrl.pathname.startsWith('/workflow')) {
+    if (!request.nextUrl.pathname.startsWith('/auth')) {
       return NextResponse.redirect(new URL('/auth/signin', request.url))
     }
   }
@@ -15,5 +15,7 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/workflow/:path*']
+  // matcher: ['/:path*']
+  // 匹配非api
+  matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)']
 }

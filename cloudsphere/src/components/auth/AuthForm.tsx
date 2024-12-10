@@ -5,6 +5,7 @@ import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { Card, Form, Input, Button, Typography } from 'antd'
 import { message } from 'antd'
+import Link from 'next/link'
 
 const { Title, Text } = Typography
 
@@ -68,13 +69,13 @@ export function AuthForm({ mode }: AuthFormProps) {
   }
 
   return (
-    <Card style={{ width: 350 }}>
+    <Card style={{ width: 350 }} hoverable>
       <div style={{ textAlign: 'center', marginBottom: 24 }}>
-        <Title level={4}>{mode === 'signin' ? 'Sign In' : 'Sign Up'}</Title>
+        <Title level={4}>{mode === 'signin' ? '登录' : '注册'}</Title>
         <Text type="secondary">
           {mode === 'signin'
-            ? 'Enter your email below to sign in to your account'
-            : 'Enter your email below to create your account'}
+            ? '输入你的邮箱以登录到你的帐户'
+            : '输入你的邮箱以创建你的帐户'}
         </Text>
       </div>
       <Form
@@ -85,18 +86,18 @@ export function AuthForm({ mode }: AuthFormProps) {
       >
         <Form.Item
           name="email"
-          label="Email"
+          label="邮箱"
           rules={[
-            { required: true, message: 'Please input your email!' },
-            { type: 'email', message: 'Please enter a valid email!' }
+            { required: true, message: '请输入邮箱!' },
+            { type: 'email', message: '请输入有效的邮箱!' }
           ]}
         >
           <Input placeholder="m@example.com" type='email' />
         </Form.Item>
         <Form.Item
           name="password"
-          label="Password"
-          rules={[{ required: true, message: 'Please input your password!' }]}
+          label="密码"
+          rules={[{ required: true, message: '请输入密码!' }]}
         >
           <Input.Password />
         </Form.Item>
@@ -107,8 +108,15 @@ export function AuthForm({ mode }: AuthFormProps) {
             loading={isLoading}
             block
           >
-            {mode === 'signin' ? 'Sign In' : 'Sign Up'}
+            {mode === 'signin' ? '登录' : '注册'}
           </Button>
+        </Form.Item>
+        <Form.Item>
+          {
+            mode === 'signin'
+              ? <Text>没有帐户？<Link href="/auth/signup">现在注册</Link></Text>
+              : <Text>已有帐户？<Link href="/auth/signin">立即登录</Link></Text>
+          }
         </Form.Item>
       </Form>
     </Card>
