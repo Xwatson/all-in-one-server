@@ -1,0 +1,49 @@
+
+
+
+
+.workflow-node .node-content {
+  padding: 8px;
+  min-height: 40px;
+}
+
+.workflow-node .node-info {
+  font-size: 12px;
+  color: #666;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.react-flow__handle {
+  width: 8px;
+  height: 8px;
+  z-index: 2;
+}
+
+.react-flow__handle:hover {
+  background: #1890ff !important;
+  width: 10px;
+  height: 10px;
+}
+
+.react-flow__handle.connecting {
+  background: #1890ff !important;
+}
+
+.react-flow__edge-path {
+  stroke: #1890ff;
+  stroke-width: 1.5;
+}
+
+.react-flow__node {
+  padding: 0;
+  border: 0;
+  background-color: transparent;
+  box-shadow: none !important;
+}
+
+.react-flow__node.selected .workflow-node,.workflow-node:hover {
+  border-color: #1890ff;
+  box-shadow: 0 6px 12px rgba(24, 144, 255, 0.15);
+}

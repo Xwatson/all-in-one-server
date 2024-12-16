@@ -1,15 +1,14 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { Layout, Table, Button, Space, Modal, message, Typography } from 'antd';
-import { PlusOutlined, EditOutlined, DeleteOutlined, PlayCircleOutlined } from '@ant-design/icons';
+import { Layout, Table, Button, Space, Modal, message } from 'antd';
+import { PlusOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { useRouter } from 'next/navigation';
-import { listWorkflows, deleteWorkflow, executeWorkflow } from '@/services/workflow';
+import { listWorkflows, deleteWorkflow } from '@/services/workflow';
 
 const { Header, Content } = Layout;
-const { Title } = Typography;
 
-export default function WorkflowPage() {
+export default function WorkflowListPage() {
   const [workflows, setWorkflows] = useState([]);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
@@ -52,15 +51,6 @@ export default function WorkflowPage() {
     });
   };
 
-  const handleExecute = async (id: string) => {
-    try {
-      await executeWorkflow(id);
-      message.success('工作流开始执行');
-    } catch (error) {
-      message.error('执行失败');
-    }
-  };
-
   const columns = [
     {
       title: '名称',
@@ -71,7 +61,6 @@ export default function WorkflowPage() {
       title: '描述',
       dataIndex: 'description',
       key: 'description',
-      ellipsis: true,
     },
     {
       title: '状态',
@@ -109,13 +98,6 @@ export default function WorkflowPage() {
           </Button>
           <Button
             type="link"
-            icon={<PlayCircleOutlined />}
-            onClick={() => handleExecute(record.id)}
-          >
-            执行
-          </Button>
-          <Button
-            type="link"
             danger
             icon={<DeleteOutlined />}
             onClick={() => handleDelete(record.id)}
@@ -130,7 +112,7 @@ export default function WorkflowPage() {
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <Header style={{ background: '#fff', padding: '0 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <Title level={3}>工作流管理</Title>
+        <h2>工作流列表</h2>
         <Button
           type="primary"
           icon={<PlusOutlined />}
@@ -145,11 +127,6 @@ export default function WorkflowPage() {
           dataSource={workflows}
           rowKey="id"
           loading={loading}
-          pagination={{
-            defaultPageSize: 10,
-            showSizeChanger: true,
-            showQuickJumper: true,
-          }}
         />
       </Content>
     </Layout>

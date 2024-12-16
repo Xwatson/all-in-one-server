@@ -30,6 +30,19 @@ npm run build
 
 # 代码检查
 npm run lint
+
+# 数据库初始化 (cloudsphere)
+# 生成 Prisma 客户端
+npm run prisma:generate --workspace=cloudsphere
+
+# 推送数据库更改
+npm run prisma:push --workspace=cloudsphere
+
+# 执行数据库迁移
+npm run prisma:migrate --workspace=cloudsphere
+
+# 部署数据库迁移
+npm run prisma:deploy --workspace=cloudsphere
 ```
 
 ## 服务说明
